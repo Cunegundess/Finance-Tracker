@@ -28,10 +28,11 @@ jobs:
           --health-retries 5
 
     env:
-      SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
-      SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-      SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: ${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/finance_tracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
