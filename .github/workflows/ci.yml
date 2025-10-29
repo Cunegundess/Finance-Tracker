@@ -16,10 +16,9 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
-          POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: postgres-ci
+          POSTGRES_PASSWORD: postgres-password-ci
+          POSTGRES_DB: finance-tracker-ci
         ports:
           - 5432:5432
         options: >-
@@ -29,10 +28,10 @@ jobs:
           --health-retries 5
 
     env:
-      SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}
-      SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}
-      SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-      SPRING_JPA_HIBERNATE_DDL_AUTO=${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-ci:5432/finance-tracker-ci
+      SPRING_DATASOURCE_USERNAME: postgres-ci
+      SPRING_DATASOURCE_PASSWORD: postgres-password-ci
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
